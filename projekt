@@ -1,0 +1,108 @@
+import time
+import random
+import sys
+import os
+
+print("Vítejte v herním automatu! Zadejte částku, o kterou chcete hrát. Začínáte na 10000. Větší sázka má menší šanci na výhru. Hodně štěstí!\n")
+
+penez = 10000
+while True:
+    print("Vaše momentální částka:", penez)
+    castka = int(input("Zadejte sázku (min. 1000): "))
+    
+    if castka>penez:
+        sys.exit("Nelze vsadit tolik!")
+    if castka<1000:
+        sys.exit("Příliš malá částka!")
+    nahodne=random.randint(1,10)
+    
+    print("\nSázím", castka, "...")
+    time.sleep(2)
+    if(castka/1000 <= nahodne):
+        print("Vyhrál jste", castka*2, "!")
+        penez += castka
+    else:
+        print("Prohrál jste", castka, "...")
+        penez -= castka
+    print()
+    print("Váš balanc:", penez)
+    print("Chcete hrát znovu? (pro vstup do obchodu zadejte 'obchod')")
+    znovu = input()
+    if znovu=='Ano' or znovu=='ano':
+        time.sleep(0.5)
+        os.system('clear')
+    elif znovu=='Obchod' or znovu=='obchod':
+        break
+    else: sys.exit("Děkujeme za návštěvu!")
+vyber=''
+while True:
+    time.sleep(0.5)
+    os.system('clear')
+    print("Váš zůstatek:", penez)
+    print("0. Konec")
+    print("1. Jídlo")
+    print("2. Nábytek")
+    print("3. Ostatní")
+    shop = input("Váš výběr: ")
+    print()
+    os.system('clear')
+    if shop=='1':
+        print("1. Banán\t(2000)")
+        print("2. Jablko\t(3500)")
+        print("3. Hruška\t(3500)")
+        print("4. Jahoda\t(5000)")
+        print("5. Chléb\t(1000)")
+        shop = input("Váš výběr: ")
+        if shop=='1':
+            penez-=2000
+            vyber += 'Banán, '
+        elif shop=='2':
+            penez-=3500
+            vyber += 'Jablko, '
+        elif shop=='3':
+            penez-=3500
+            vyber += 'Hruška, '
+        elif shop=='4':
+            penez-=5000
+            vyber += 'Jahoda, '
+        elif shop=='5':
+            penez-=1000
+            vyber  += 'Chléb, '
+        else: sys.exit("Nelze koupit!")
+ 
+    elif shop=='2':
+        print("1. Židle\t(4000)")
+        print("2. Stůl\t(8000)")
+        print("3. Skříň\t(10000)")
+        print("4. Dveře\t(9000)")
+        print("5. Police\t(2000)")
+        shop = input("Váš výběr: ")
+        if shop=='1':
+            penez-=4000
+            vyber += 'Židle, '
+        elif shop=='2':
+            penez-=8000
+            vyber += 'Stůl, '
+        elif shop=='3':
+            penez-=10000
+            vyber += 'Skříň, '
+        elif shop=='4':
+            penez-=9000
+            vyber += 'Dveře, '
+        elif shop=='5':
+            penez-=2000
+            vyber += 'Police, '
+        else: sys.exit("Nelze koupit!")
+    elif shop=='3':
+        print("Koupit kasíno? (Cena: 1000000)")
+        shop = input("(ano/ne): ")
+        if shop=='ano':
+            penez-=1000000
+            if penez<0: sys.exit("Žadné podvody!")
+            else: sys.exit("Gratulujeme k úspěchu! Nyní vám patří celé kasíno Redux Industries.")
+    elif shop=='0': break
+    else: sys.exit("Neplatná kategorie!")
+    if penez < 0: sys.exit("Došly vám peníze!")
+print("Koupil jste si:", vyber)
+print("Zůstalo vám:", penez)
+print("Děkujeme za hru!")
